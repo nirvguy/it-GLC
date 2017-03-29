@@ -44,3 +44,15 @@ class Grammar:
             if S not in self.rules:
                 raise InvalidToken(S)
 
+
+class AST:
+    def __init__(self, v, childs=[]):
+        self.v = v
+        self.childs = childs
+        self._calculate_height()
+
+    def _calculate_height():
+        if childs:
+            self.height = max(map(lambda n: n.height, self.childs)) + 1
+        else:
+            self.height = 1
