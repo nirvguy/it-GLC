@@ -1,7 +1,7 @@
 class InvalidSymbol(Exception):
     pass
 
-class InvalidName(exception):
+class InvalidName(Exception):
     def __init__(self, name):
         self.name = name
 
@@ -21,6 +21,18 @@ class InvalidToken(InvalidName):
 
     def __str__(self):
         return "{} is not a valid token".format(self.name)
+
+class AST:
+    def __init__(self, v, childs=[]):
+        self.v = v
+        self.childs = childs
+        self._calculate_height()
+
+    def _calculate_height(self):
+        if childs:
+            self.height = max(map(lambda n: n.height, self.childs)) + 1
+        else:
+            self.height = 1
 
 class Grammar:
     def __init__(self, tokens, start_symbol = 'START'):
@@ -44,15 +56,3 @@ class Grammar:
             if S not in self.rules:
                 raise InvalidToken(S)
 
-
-class AST:
-    def __init__(self, v, childs=[]):
-        self.v = v
-        self.childs = childs
-        self._calculate_height()
-
-    def _calculate_height():
-        if childs:
-            self.height = max(map(lambda n: n.height, self.childs)) + 1
-        else:
-            self.height = 1
